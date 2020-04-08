@@ -1,20 +1,24 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[40]:
+# In[2]:
 
 
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from bs4 import BeautifulSoup
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
 import json
 
 
-# In[73]:
+# In[20]:
 
 
-driver = webdriver.Chrome() #path:/user/local/bin
+
+options = FirefoxOptions()
+options.add_argument("--headless")
+driver = webdriver.Firefox(options=options)
 driver.get("https://www.ozbargain.com.au/cat/electrical-electronics/deals")
 htmltext = driver.page_source
 driver.close()
@@ -22,7 +26,7 @@ driver.close()
 soup = BeautifulSoup(htmltext, 'html.parser')
 deals_divs = soup.findAll("div", {"class": "node-ozbdeal"})
 
-line_bot_api = LineBotApi('your_token')
+line_bot_api = LineBotApi('Your_token')
 
 
 new_deals = []
@@ -43,7 +47,7 @@ for deal in deals_divs:
         
         #push message to one user
         line_bot_api.push_message(
-            'your_user_id', #user_id
+            'Your_user_id', 
             TextSendMessage(text=title+" https://www.ozbargain.com.au/node/"+deal_id)
         )
         
