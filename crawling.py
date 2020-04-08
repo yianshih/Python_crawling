@@ -11,11 +11,20 @@ from linebot.models import TextSendMessage
 import json
 
 
-# In[69]:
+# In[71]:
 
 
 driver = webdriver.Chrome() #path:/user/local/bin
-driver.get("https://www.ozbargain.com.au/cat/electrical-electronics")
+driver.get("https://www.ozbargain.com.au/cat/electrical-electronics/deals")
+htmltext = driver.page_source
+driver.close()
+
+
+# In[73]:
+
+
+driver = webdriver.Chrome() #path:/user/local/bin
+driver.get("https://www.ozbargain.com.au/cat/electrical-electronics/deals")
 htmltext = driver.page_source
 driver.close()
 
@@ -43,7 +52,7 @@ for deal in deals_divs:
         
         #push message to one user
         line_bot_api.push_message(
-            'user_id', #user_id
+            'your_user_id', #user_id
             TextSendMessage(text=title+" https://www.ozbargain.com.au/node/"+deal_id)
         )
         
