@@ -22,6 +22,8 @@ driver.close()
 soup = BeautifulSoup(htmltext, 'html.parser')
 deals_divs = soup.findAll("div", {"class": "node-ozbdeal"})
 
+line_bot_api = LineBotApi('your_token')
+
 
 new_deals = []
 update = False
@@ -40,7 +42,10 @@ for deal in deals_divs:
         title = h2['data-title']
         
         #push message to one user
-        
+        line_bot_api.push_message(
+            'user_id', #user_id
+            TextSendMessage(text=title+" https://www.ozbargain.com.au/node/"+deal_id)
+        )
         
 if update:
     for deal in new_deals:
