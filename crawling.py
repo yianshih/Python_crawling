@@ -11,15 +11,6 @@ from linebot.models import TextSendMessage
 import json
 
 
-# In[71]:
-
-
-driver = webdriver.Chrome() #path:/user/local/bin
-driver.get("https://www.ozbargain.com.au/cat/electrical-electronics/deals")
-htmltext = driver.page_source
-driver.close()
-
-
 # In[73]:
 
 
